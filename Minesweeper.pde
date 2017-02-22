@@ -30,11 +30,9 @@ public void setBombs()
 {
 	int bombX = (int)(Math.random()*20);
 	int bombY = (int)(Math.random()*20);
-	if (bombs.contains(buttons[bombX][bombY] == true) {
-		
-	}
-	else {
-		bombs.add(bombX,bombY);
+	System.out.println("Bomb at (" + bombX + "," + bombY + ").");
+	if (bombs.contains(buttons[bombX][bombY]) == false) {
+		bombs.add(buttons[bombX][bombY]);
 	}
 	
 }
@@ -115,7 +113,9 @@ public class MSButton
     }
     public boolean isValid(int r, int c)
     {
-        //your code here
+        if (r < NUM_ROWS && r >= 0 && c < NUM_COLS && c >= 0) {
+        	return true;
+        }
         return false;
     }
     public int countBombs(int row, int col)
