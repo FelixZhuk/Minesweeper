@@ -28,8 +28,8 @@ void setup ()
 }
 public void setBombs()
 {
-	int bombX = (int)(Math.random()*20);
-	int bombY = (int)(Math.random()*20);
+	int bombX = (int)(Math.random()*NUM_ROWS);
+	int bombY = (int)(Math.random()*NUM_COLS);
 	System.out.println("Bomb at (" + bombX + "," + bombY + ").");
 	if (bombs.contains(buttons[bombX][bombY]) == false) {
 		bombs.add(buttons[bombX][bombY]);
@@ -122,6 +122,19 @@ public class MSButton
     {
         int numBombs = 0;
         //your code here
+		if(isValid(r,c-1) && blobs[r][c-1].contains(bombs[r][c-1])) {
+            numBombs++;
+        }
+        if(isValid(r,c+1) && blobs[r][c+1].contains(bombs[r][c+1])) {
+            numBombs++;
+        }
+        if(isValid(r-1,c) && blobs[r-1][c].contains(bombs[r-1][c])){
+            numBombs++;
+        }
+        if(isValid(r + 1,c) && blobs[r-1][c].contains(bombs[r-1][c])) {
+            numBombs++;
+        }
+        //end of my code
         return numBombs;
     }
 }
