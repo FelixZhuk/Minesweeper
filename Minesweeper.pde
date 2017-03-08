@@ -7,6 +7,8 @@ public final static int NUM_COLS = 20;
 public static int num_bombs = 20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs = new ArrayList <MSButton>(); //ArrayList of just the minesweeper buttons that are mined
+public int bombsMarked = 0;
+
 
 void setup ()
 {
@@ -47,17 +49,20 @@ public void setBombs()
 public void draw ()
 {
     background( 0 );
-    if(isWon())
+    if(isWon() == true)
         displayWinningMessage();
 }
 public boolean isWon()
 {
     //your code here
-    return false;
+    //Start
+   	return true;
+    //End
+    //return false; //Originally working, temp commented out
 }
 public void displayLosingMessage()
 {
-    if (isWon() == false) {
+    //if (isWon() == false) {
     	buttons[9][9].setLabel("You Lose!");
     	buttons[9][10].setLabel("se!");
     	for (int x = 0; x < NUM_ROWS; x++) {
@@ -67,12 +72,15 @@ public void displayLosingMessage()
 		    	}
 	    	}
     	}
-    }
+    //}
     	noLoop();
 }
 public void displayWinningMessage()
 {
-
+    if (isWon() == true) {
+    	buttons[9][9].setLabel("You Win!");
+    }
+    	noLoop();
 }
 
 public class MSButton
@@ -106,18 +114,27 @@ public class MSButton
     
     public void mousePressed () 
     {
+
         clicked = true;
         if (keyPressed == true) {
         	marked = !marked;
         	if (marked == false) {
         		clicked = false;
         	}
+        	//Start of test code
+    		if (bombs.contains(this)) {
+    			bombsMarked++;
+    		}
+    		if (bombsMarked == num_bombs) {
+    			isWon();
+    		}
+    		//End of test code
         }
-    	else if (bombs.contains(this)) {
+    	else if (bombs.contains(this) && marked == false) {
     		displayLosingMessage();
     	}
     	else if (countBombs(r,c) > 0) {
-    		setLabel(Integer.toString(countBombs(r,c)));
+    		setLabel("" + countBombs(r,c));
     	}
     	else {
     		//Start
